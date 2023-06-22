@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Bonus Calculator</title>
+</head>
+<body>
+  <div class="calculator">
+    <h1>Bonus Calculator</h1>
+    <h2>Always check is player covered most recent Payout</h2>
+    <label for="profile-select">Select Profile:</label>
+    <select id="profile-select">
+      <option value="shannon">Shannon D-1630</option>
+      <option value="rick">Rick D-325</option>
+      <option value="binetti">Binetti D-105</option>
+      <option value="Jared">Jared K D-270</option>  
+      <option value="Claud">Claud Gabby D-155</option> 
+    </select>
+    <label for="amount-input">Amount:</label>
+    <input type="number" id="amount-input">
+    <button onclick="calculateBonus()">Calculate</button>
+
+    <div id="profile-name"> <!-- Added div for profile name -->
+      <h1 id="profile-name-label"></h1>
+    </div>
+
+    <div id="bonus-result">
+      <label id="bonus-amount-label"></label>
+      <label id="total-amount-label"></label>
+      <label id="rollover-label"></label>
+      <label id="bust-out-label"></label>
+      <label id="bust-out-rollover-label"></label>
+      <label id="bo-loyalty-label"></label> <!-- Added field for BO + Loyalty -->
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
