@@ -36,8 +36,8 @@ function calculateBonus() {
       boLoyalty = Math.floor(0.65 * amount); // Added new field
       break;
     case "binetti":
-      profileNameLabel.textContent = "Binetti Dice105";
-      bonusFormula = 1;
+      profileNameLabel.textContent = "Binetti Dice105 - Bonus + Comp ";
+      bonusFormula = 1.5;
       rollover = Math.floor((amount + amount * bonusFormula) * 12); // Updated for Binetti profile
       bustOut = 0; // No bust out for Binetti profile
       bustOutRollover = 0; // No bust out rollover for Binetti profile
