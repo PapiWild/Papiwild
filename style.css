@@ -1,54 +1,217 @@
-.calculator {
-  margin-top: 20px;
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left {
+  flex: 1;
+  background-color: #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: black;
+}
+
+.right {
+  flex: 1;
+  background-color: #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+  padding: 5px;
+  position: relative;
+  margin-top: -150px;
+}
+
+.right h2.centered-text {
+  position: relative;
+  margin-top: 0;
+  left: 0;
+  transform: none;
+}
+
+.right h3#profile-name {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  font-size: 1.8em;
+  margin-top: -10px;
+}
+
+.profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 230px; 
+  max-width: 500px;
+  padding: 20px;
+  word-wrap: break-word;
+  margin-bottom: -50px;
 }
 
-label {
-  display: block;
-  margin-top: 10px;
+.profile-info h2.centered-text,
+.profile-info h3.centered-text,
+.profile-info h4.centered-text,
+.profile-info p.centered-text {
+  text-align: center;
+}
+
+.profile-info .horizontal-fields {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+.profile-info .horizontal-fields p {
+  margin: 5px 5px 0 5px;
+}
+
+.status-settlements {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin-bottom: 400; 
+  margin-top: -45px;
+}
+
+.field-gap.status,
+.field-gap.settlements {
+  margin-top: 20px;
+}
+
+.status,
+.settlements {
+  width: 150px;
+}
+
+.bonus-package {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin-bottom: 30px; 
+  margin-top: -105px;
+}
+
+.autocomplete-container {
+  position: absolute;
+  top: 10px;
+  left: 530px;
+  z-index: 1;
+}
+
+.autocomplete {
+  padding: 10px;
+  font-size: 16px;
+}
+
+.bonus-calculator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -70px;
+}
+
+.bonus-calculator h2 {
   font-weight: bold;
 }
 
-input[type="number"] {
-  width: 200px;
-  padding: 5px;
+.bonus-calculator label {
+  margin-top: 45px;
 }
 
-button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
+.bonus-calculator input[type="number"] {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.bonus-calculator button {
+  padding: 10px 20px;
+  margin-top: 5px;
+  background-color: blue;
+  color: white;
   border: none;
   cursor: pointer;
 }
 
-#bonus-result {
-  margin-top: 20px;
-  padding-top: 10px;
+#calculate-btn {
+  background-color: blue;
 }
 
-#bonus-result label {
-  display: block;
+#deposit-btn {
+  background-color: green;
+}
+
+#withdrawal-btn {
+  background-color: red;
+}
+
+.bonus-calculator .results {
+  margin-top: 10px;
+}
+
+.bonus-calculator .results p {
+  margin-bottom: 5px;
+}
+
+button {
+  padding: 10px 20px;
   margin-top: 5px;
-  font-weight: bold;
+  background-color: blue;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 
-
-#bonus-result label:nth-of-type(4)::before {
-  content: "";
-  display: block;
-  border-top: 5px solid #ccc;
-  margin-top: 15px;
-  margin-bottom: 15px;
+#calculate-btn {
+  background-color: #007bff;
 }
 
-#bonus-result label:nth-of-type(6)::before {
-  content: "";
-  display: block;
-  border-top: 5px solid #ccc;
-  margin-top: 15px;
-  margin-bottom: 15px;
+#deposit-btn {
+  background-color: #28a745; /* This is a green color */
+}
+
+#withdrawal-btn {
+  background-color: #dc3545; /* This is a red color */
+}
+
+.results {
+  margin-top: 20px;
+}
+
+.field-gap {
+  margin-bottom: -20px;
+}
+
+.horizontal-fields {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.centered-text {
+  text-align: center;
+}
+
+button {
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+#calculate-btn {
+  background-color: #007bff;
 }
