@@ -1,0 +1,96 @@
+[
+  {
+    "id": "Dice1630",
+    "name": "Shannon Todd Dice1630",
+    "bonusFormula": {
+      "bonusMultiplier": 1,
+      "rolloverMultiplier": 20,
+      "bustOutCompMultiplier": 0.3,
+      "bustOutRolloverMultiplier": 20,
+      "boLoyaltyMultiplier": 0.1
+    },
+    "bonusStatus": "Good to go",
+    "pendingSettlements": "none",
+    "bonusPackage": [
+      "Deposit Bonus: 100% Cash Bonus / 20x Rollover",
+      "Bustout Comp: 30% / 20x Rollover",
+      "Loyalty Comp: 10% on net losses since last addition / 20x"
+    ],
+    "clientInfo": [
+      "Casino is FULL action",
+      "NO extra comps or Bonuses, gotta be strict with him",
+      "UNDER NO CIRCUMSTANCES TO PREFUND SHANNON"
+    ],
+    "telephone": "555-1234",
+    "houseName": "Dice Residence",
+    "street": "123 Main St",
+    "town": "Cityville",
+    "county": "County",
+    "zipcode": "12345",
+    "totalDeposits": 74000,
+    "totalWithdrawals": 33000,
+    "deposit-response": "Deposit made successfully",
+    "withdrawal-response": "Withdrawal made successfully"
+  },
+  {
+    "id": "Dice325",
+    "name": "Richard McDaniel Dice325",
+    "bonusFormula": {
+      "bonusMultiplier": 1,
+      "rolloverMultiplier": 8,
+      "bustOutCompMultiplier": 0.5,
+      "bustOutRolloverMultiplier": 8,
+      "boLoyaltyMultiplier": 0.15
+    },
+    "bonusStatus": "Good to go",
+    "pendingSettlements": "none",
+    "bonusPackage": [
+      "Deposit Bonus: 100% Cash Bonus / 8x R.O",
+      "Bustout Comp: 50% / 8x R.O",
+      "Loyalty Comp: 15% on net losses since last addition / 8x R.O"
+    ],
+    "clientInfo": [
+      "Can withdraw 6k at once. Payments will be sent out in 3k installments",
+      "NO credit line for Rick",
+      "Amex Processing: Remove $15 + %3.5"
+    ],
+    "telephone": "555-5678",
+    "houseName": "McDaniel Residence",
+    "street": "456 Oak Ave",
+    "town": "Townville",
+    "county": "County",
+    "zipcode": "56789",
+    "totalDeposits": 64000,
+    "totalWithdrawals": 83000,
+    "deposit-response": "Deposit made successfully",
+    "withdrawal-response": "Withdrawal made successfully"
+  },
+  {
+    "id": "Dice105",
+    "name": "Frank Binetti Dice105",
+    "bonusFormula": {
+      "bonusMultiplier": 1.5,
+      "rolloverMultiplier": 12
+    },
+    "bonusStatus": "$730",
+    "pendingSettlements": "none",
+    "bonusPackage": [
+      "Deposit Bonus: 150% Cash Bonus / 12x R.O"
+    ],
+    "clientInfo": [
+      "Never prefund binetti",
+      "He is permitted to use his dad and girlfriend's card, We DON'T save those card numbers",
+      "Amex Processing: Remove $15 + %3.5"
+    ],
+    "telephone": "555-9876",
+    "houseName": "Binetti Residence",
+    "street": "789 Elm St",
+    "town": "Villageville",
+    "county": "County",
+    "zipcode": "98765",
+    "totalDeposits": 124000,
+    "totalWithdrawals": 21000,
+    "deposit-response": "Deposit made successfully",
+    "withdrawal-response": "Withdrawal made successfully"
+  }
+]
