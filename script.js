@@ -1,80 +1,125 @@
-function calculateBonus() {
-  var profileSelect = document.getElementById("profile-select");
-  var selectedProfile = profileSelect.value;
-  var amountInput = document.getElementById("amount-input");
-  var amount = parseFloat(amountInput.value);
+let selectedProfileId = null;
+const profiles = [];
 
-  var bonusAmountLabel = document.getElementById("bonus-amount-label");
-  var totalAmountLabel = document.getElementById("total-amount-label");
-  var rolloverLabel = document.getElementById("rollover-label");
-  var bustOutLabel = document.getElementById("bust-out-label");
-  var bustOutRolloverLabel = document.getElementById("bust-out-rollover-label");
-  var boLoyaltyLabel = document.getElementById("bo-loyalty-label"); // Added new field
-  var profileNameLabel = document.getElementById("profile-name-label");
+function populateAutocomplete() {
+  const input = document.getElementById('customer-input');
 
-  var bonusFormula;
-  var rollover;
-  var bustOut;
-  var bustOutRollover;
-  var boLoyalty;
+  fetch('profiles.json')
+    .then(response => response.json())
+    .then(data => {
+      profiles.push(...data);
 
+      $("#customer-input").autocomplete({
+        source: profiles.map(profile => ({label: profile.name, value: profile.id})),
+        select: function(event, ui) {
+          event.preventDefault();
+          input.value = ui.item.label;
+          selectedProfileId = ui.item.value;
+          calculateBonuses();
+          populateProfileInfo();
+        },
+        focus: function(event, ui) {
+          event.preventDefault();
+          input.value = ui.item.label;
+        }
+      });
 
-  switch (selectedProfile) {
-    case "shannon":
-      profileNameLabel.textContent = "Shannon Dice1630";
-      bonusFormula = 1.5;
-      rollover = Math.floor(30 * amount) + Math.floor(30 * amount * bonusFormula);
-      bustOut = Math.floor(0.3 * amount);
-      bustOutRollover = Math.floor(0.3 * amount * 20);
-      break;
-    case "rick":
-      profileNameLabel.textContent = "Rick Dice325";
-      bonusFormula = 1;
-      rollover = Math.floor((amount + amount * bonusFormula) * 8);
-      bustOut = Math.floor(0.5 * amount);
-      bustOutRollover = Math.floor(8 * (0.5 * amount));
-      boLoyalty = Math.floor(0.65 * amount); // Added new field
-      break;
-    case "binetti":
-      profileNameLabel.textContent = "Binetti Dice105 - Bonus + Comp ";
-      bonusFormula = 1.5;
-      rollover = Math.floor((amount + amount * bonusFormula) * 12); // Updated for Binetti profile
-      bustOut = 0; // No bust out for Binetti profile
-      bustOutRollover = 0; // No bust out rollover for Binetti profile
-      boLoyalty = 0; // No BO + Loyalty for Binetti profile
-      break;
-    case "Jared":
-      profileNameLabel.textContent = "Jared K Dice270";
-      bonusFormula = 1;
-      rollover = Math.floor((amount + amount * bonusFormula) * 20); // Updated for Jared profile
-      bustOut = 0; // No bust out for Jared profile
-      bustOutRollover = 0; // No bust out rollover for Jared profile
-      boLoyalty = 0; // No BO + Loyalty for Jared profile
-      break;
-    case "Claud":
-      profileNameLabel.textContent = "Claud Gabby Dice155";
-      bonusFormula = 1;
-      rollover = Math.floor((amount + amount * bonusFormula) * 20); // Updated for Jared profile
-      bustOut = 0; // No bust out for Jared profile
-      bustOutRollover = 0; // No bust out rollover for Jared profile
-      boLoyalty = 0; // No BO + Loyalty for Jared profile
-      break;
-    default:
-      profileNameLabel.textContent = "";
-      bonusFormula = 0;
-      rollover = 0;
-      bustOut = 0;
-      bustOutRollover = 0;
-      boLoyalty = 0;
+      input.addEventListener('change', calculateBonuses);
+      document.getElementById('amount').addEventListener('input', calculateBonuses);
+    })
+    .catch(err => console.error(err));
+}
+
+function calculateBonuses() {
+  const amountInput = document.getElementById('amount');
+  const amount = parseFloat(amountInput.value);
+
+  if (isNaN(amount) || selectedProfileId === null) {
+    clearResults();
+    return;
   }
 
-  var bonusAmount = amount * bonusFormula;
-  var totalAmount = amount + bonusAmount;
+  const selectedProfile = profiles.find(profile => profile.id === selectedProfileId);
+  const bonusFormula = selectedProfile.bonusFormula;
 
-  bonusAmountLabel.textContent = "Bonus Amount: " + Math.floor(bonusAmount);
-  totalAmountLabel.textContent = "Total Amount: " + Math.floor(totalAmount);
-  rolloverLabel.textContent = "Rollover: " + Math.floor(rollover);
-  bustOutLabel.textContent = "Bust Out Comp: " + Math.floor(bustOut);
-  bustOutRolloverLabel.textContent = "Bust Out Rollover: " + Math.floor(bustOutRollover);
-  boLoyaltyLabel.textContent = "BO + Loyalty: " + Math.floor(boLoyalty); // Updated for Binetti profile
+  const resultSpans = document.querySelectorAll('.results span');
+
+  if (selectedProfile.bonusStatus !== "Good to go") {
+    resultSpans.forEach(span => {
+      span.style.color = 'red';
+      span.style.fontWeight = 'normal';
+      span.textContent = `Payout to cover ${selectedProfile.bonusStatus}`;
+    });
+    return;
+  }
+
+  // Set color to black and text to bold for 'Good to go' profiles
+  resultSpans.forEach(span => {
+    span.style.color = 'black';
+    span.style.fontWeight = 'bold';
+  });
+
+  const bonusAmount = Math.round(amount * bonusFormula.bonusMultiplier);
+  const totalAmount = Math.round(amount + bonusAmount);
+  const rollover = Math.round(totalAmount * bonusFormula.rolloverMultiplier);
+  const bustOutComp = Math.round(amount * bonusFormula.bustOutCompMultiplier);
+  const bustOutRollover = Math.round(bustOutComp * bonusFormula.bustOutRolloverMultiplier);
+
+  document.getElementById('bonus-amount').textContent = bonusAmount;
+  document.getElementById('total-amount').textContent = totalAmount;
+  document.getElementById('rollover').textContent = rollover;
+  document.getElementById('bust-out-comp').textContent = bustOutComp;
+  document.getElementById('bust-out-rollover').textContent = bustOutRollover;
+
+  if (bonusFormula.boLoyaltyMultiplier !== undefined) {
+    const boLoyalty = Math.round(amount * bonusFormula.boLoyaltyMultiplier);
+    document.getElementById('bo-loyalty').textContent = boLoyalty;
+    document.getElementById('bo-loyalty').parentNode.style.display = 'block';
+  } else {
+    document.getElementById('bo-loyalty').parentNode.style.display = 'none';
+  }
 }
+
+function populateProfileInfo() {
+  const selectedProfile = profiles.find(profile => profile.id === selectedProfileId);
+
+  document.getElementById('profile-name').textContent = selectedProfile.name;
+  document.getElementById('bonus-status').textContent = selectedProfile.bonusStatus;
+  document.getElementById('pending-settlements').textContent = selectedProfile.pendingSettlements;
+
+  const bonusPackageElement = document.getElementById('bonus-package');
+  bonusPackageElement.innerHTML = '';
+  for (let item of selectedProfile.bonusPackage) {
+    let li = document.createElement('li');
+    li.innerHTML = item;
+    bonusPackageElement.appendChild(li);
+  }
+
+  const clientInfoElement = document.getElementById('client-info');
+  clientInfoElement.innerHTML = '';
+  for (let item of selectedProfile.clientInfo) {
+    let li = document.createElement('li');
+    li.innerHTML = item;
+    clientInfoElement.appendChild(li);
+  }
+
+  document.getElementById('telephone').textContent = selectedProfile.telephone;
+  document.getElementById('house-name').textContent = selectedProfile.houseName;
+  document.getElementById('street').textContent = selectedProfile.street;
+  document.getElementById('town').textContent = selectedProfile.town;
+  document.getElementById('county').textContent = selectedProfile.county;
+  document.getElementById('zipcode').textContent = selectedProfile.zipcode;
+  document.getElementById('total-deposits').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(selectedProfile.totalDeposits);
+  document.getElementById('total-withdrawals').textContent = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(selectedProfile.totalWithdrawals);
+}
+
+function clearResults() {
+  const resultSpans = document.querySelectorAll('.results span');
+  resultSpans.forEach(span => {
+    span.textContent = '';
+    span.style.color = 'initial';
+    span.style.fontWeight = 'normal';
+  });
+}
+
+window.addEventListener('load', populateAutocomplete);
