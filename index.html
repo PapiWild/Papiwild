@@ -1,39 +1,127 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <title>Bonus Calculator</title>
+  <title>Split Background Website</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css" />
+  <style>
+    #FLOW {
+      border-collapse: collapse;
+      width: 70%;
+    }
+
+    #FLOW td, #FLOW th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    #FLOW tr:nth-child(even){background-color: white;}
+
+    #FLOW tr:hover {background-color: #ddd;}
+
+    #FLOW th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+
+    #FLOW th.red-background {
+      background-color: #04AA6D;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <div class="calculator">
-    <h1>Bonus Calculator</h1>
-    <h2>Always check is player covered most recent Payout</h2>
-    <label for="profile-select">Select Profile:</label>
-    <select id="profile-select">
-      <option value="shannon">Shannon D-1630</option>
-      <option value="rick">Rick D-325</option>
-      <option value="binetti">Binetti D-105</option>
-      <option value="Jared">Jared K D-270</option>  
-      <option value="Claud">Claud Gabby D-155</option> 
-    </select>
-    <label for="amount-input">Amount:</label>
-    <input type="number" id="amount-input">
-    <button onclick="calculateBonus()">Calculate</button>
+  <div class="container">
+    <div class="left">
+      <div class="autocomplete-container">
+        <input id="customer-input" class="autocomplete" placeholder="Type to search..." />
+      </div>
+      <div class="bonus-calculator">
+      
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" placeholder="Enter amount" />
+        <div class="button-container">
+          <button id="calculate-btn">Calculate</button>
+          <button id="deposit-btn">Deposit</button>
+          <button id="withdrawal-btn">Withdrawal</button>
+        </div>
+        <div class="results">
+          <p><strong style="color: #1f1f2e;">Bonus Amount:</strong> <span id="bonus-amount" class="normal"></span></p>
+          <p><strong style="color: #1f1f2e;">Total Amount:</strong> <span id="total-amount" class="normal"></span></p>
+          <p><strong style="color: #1f1f2e;">Rollover:</strong> <span id="rollover" class="normal"></span></p>
+          <hr />
+          <p><strong style="color: #1f1f2e;">Bust out Comp:</strong> <span id="bust-out-comp" class="normal"></span></p>
+          <p><strong style="color: #1f1f2e;">Bust out Rollover:</strong> <span id="bust-out-rollover" class="normal"></span></p>
+          <p><strong style="color: #1f1f2e;">BO + Loyalty:</strong> <span id="bo-loyalty" class="normal"></span></p>
+        </div>
+      </div>
+      <h3>-</h3>
 
-    <div id="profile-name"> <!-- Added div for profile name -->
-      <h1 id="profile-name-label"></h1>
+      <table id="FLOW">
+        <tr>
+          <th class="red-background">Deposits</th>
+          <th>Withdrawals</th>
+        </tr>
+        <tr>
+          <td id="total-deposits">Total Deposits</td>
+          <td id="total-withdrawals">Total Withdrawals</td>
+        </tr>
+      </table>
     </div>
-
-    <div id="bonus-result">
-      <label id="bonus-amount-label"></label>
-      <label id="total-amount-label"></label>
-      <label id="rollover-label"></label>
-      <label id="bust-out-label"></label>
-      <label id="bust-out-rollover-label"></label>
-      <label id="bo-loyalty-label"></label> <!-- Added field for BO + Loyalty -->
+    <div class="right">
+      <div class="profile-info">
+        <h2 class="centered-text">Profile Information</h2>
+        <h3 id="profile-name" class="centered-text"></h3>
+        <div class="status-settlements">
+          <div class="field-gap status">
+            <h4 style="color: #1f1f2e;" class="centered-text">Bonus Status:</h4>
+            <p id="bonus-status" class="centered-text"></p>
+          </div>
+          <div class="field-gap settlements">
+            <h4 style="color: #1f1f2e;" class="centered-text">Pending Settlements:</h4>
+            <p id="pending-settlements" class="centered-text"></p>
+          </div>
+        </div>
+        <div class="field-gap">
+          <h4 style="color: #1f1f2e;">Bonus Package:</h4>
+          <ul id="bonus-package"></ul>
+        </div>
+        <div class="field-gap">
+          <h4 style="color: #1f1f2e;">Client Information:</h4>
+          <ul id="client-info"></ul>
+        </div>
+        <div class="field-gap horizontal-fields">
+          <div>
+            <p><strong>Telephone:</strong></p>
+            <p id="telephone" class="response"></p>
+          </div>
+          <div>
+            <p><strong>House Name:</strong></p>
+            <p id="house-name" class="response"></p>
+          </div>
+          <div>
+            <p><strong>Street:</strong></p>
+            <p id="street" class="response"></p>
+          </div>
+          <div>
+            <p><strong>Town:</strong></p>
+            <p id="town" class="response"></p>
+          </div>
+          <div>
+            <p><strong>County:</strong></p>
+            <p id="county" class="response"></p>
+          </div>
+          <div>
+            <p><strong>Zipcode:</strong></p>
+            <p id="zipcode" class="response"></p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
